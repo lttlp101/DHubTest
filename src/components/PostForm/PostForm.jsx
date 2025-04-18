@@ -1,9 +1,10 @@
 // PostForm.jsx
 // Form for creating or editing a post: title, content, image URL, flags, video URL, upload image, secret key/userId.
 import React, { useState } from "react";
-import styles from "./PostForm.module.css";
+import Button from "../Button/Button";
 import FileUploader from "../FileUploader/FileUploader";
 import { validatePost } from "../../utils/validation";
+import styles from "./PostForm.module.css";
 
 const FLAG_OPTIONS = ["Question", "Opinion"];
 
@@ -91,9 +92,9 @@ const PostForm = ({ initialValues = {}, onSubmit, isEdit }) => {
 				onChange={(e) => setSecretKey(e.target.value)}
 			/>
 			{error && <div style={{ color: "red" }}>{error}</div>}
-			<button type="submit">
+			<Button type="submit">
 				{isEdit ? "Update Post" : "Create Post"}
-			</button>
+			</Button>
 		</form>
 	);
 };

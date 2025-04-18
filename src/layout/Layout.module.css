@@ -1,0 +1,22 @@
+/* Layout.module.css */
+/* Styles for the main layout structure */
+
+.layoutContainer {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.main {
+	flex: 1;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: var(--spacing-lg) var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+	.main {
+		padding: var(--spacing-md);
+	}
+}

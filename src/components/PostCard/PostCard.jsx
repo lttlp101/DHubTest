@@ -1,8 +1,9 @@
 // PostCard.jsx
 // Displays a single post in the feed: title, upvotes, creation time, and click to view details.
 import React from "react";
-import styles from "./PostCard.module.css";
+import Button from "../Button/Button";
 import { formatDate } from "../../utils/formatDate";
+import styles from "./PostCard.module.css";
 
 const PostCard = ({ post, onClick }) => {
 	return (

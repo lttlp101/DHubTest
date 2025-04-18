@@ -1,6 +1,7 @@
 // CommentSection.jsx
 // Displays comments for a post and allows adding/deleting comments.
 import React from "react";
+import Button from "../Button/Button";
 import styles from "./CommentSection.module.css";
 
 const CommentSection = ({
@@ -24,13 +25,15 @@ const CommentSection = ({
 								: {comment.content}
 							</div>
 							{onDelete && (
-								<button
+								<Button
 									className={styles.deleteBtn}
 									onClick={() => onDelete(comment.id)}
 									title="Delete comment"
+									variant="primary"
+									size="medium"
 								>
 									🗑️
-								</button>
+								</Button>
 							)}
 						</div>
 					))
@@ -50,12 +53,14 @@ const CommentSection = ({
 						if (e.key === "Enter" && onAdd) onAdd();
 					}}
 				/>
-				<button
+				<Button
 					onClick={onAdd}
 					disabled={!commentText || !commentText.trim()}
+					variant="primary"
+					size="medium"
 				>
 					Add
-				</button>
+				</Button>
 			</div>
 		</div>
 	);

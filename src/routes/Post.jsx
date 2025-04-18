@@ -15,6 +15,7 @@ import CommentSection from "../components/CommentSection/CommentSection";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../components/UpvoteButton/UpvoteButton";
 import { useParams, useNavigate } from "react-router-dom";
+import Button from "../Button/Button";
 
 const Post = () => {
 	const { id } = useParams();
@@ -113,12 +114,13 @@ const Post = () => {
 					onUpvote={handleUpvote}
 					disabled={upvoting}
 				/>
-				<button
+				<Button
 					onClick={handleDeletePost}
+					variant="danger"
 					style={{ marginLeft: "1rem" }}
 				>
 					Delete Post
-				</button>
+				</Button>
 			</div>
 			<CommentSection
 				comments={comments}

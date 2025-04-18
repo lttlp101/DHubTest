@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button/Button";
 
 const Register = () => {
 	const [username, setUsername] = useState("");
@@ -45,7 +46,9 @@ const Register = () => {
 					/>
 				</div>
 				{error && <div style={{ color: "red" }}>{error}</div>}
-				<button type="submit">Register</button>
+				<Button type="submit" variant="primary" fullWidth>
+					Register
+				</Button>
 			</form>
 		</div>
 	);
