@@ -1,0 +1,72 @@
+// postsService.js
+// Handles all CRUD operations for posts (create, read, update, delete, upvote, repost, etc).
+import supabase from "./supabaseClient";
+
+// Fetch all posts with optional sorting and filtering
+export async function fetchPosts({
+	sortBy = "created_at",
+	order = "desc",
+	search = "",
+	flag = "",
+} = {}) {
+	let query = supabase.from("Posts").select("*");
+
+	if (search) {
+		query = query.ilike("title", `%${search}%`);
+	}
+	if (flag) {
+		query = query.contains("flags", [flag]);
+	}
+	query = query.order(sortBy, { ascending: order === "asc" });
+
+	const { data, error } = await query;
+	if (error) throw error;
+	return data;
+}
+
+// Fetch a single post by ID
+export async function fetchPostById(id) {
+	const { data, error } = await supabase
+		.from("Posts")
+		.select("*")
+		.eq("id", id)
+		.single();
+	if (error) throw error;
+	return data;
+}
+
+// Create a new post
+export async function createPost(post) {
+	const { data, error } = await supabase
+		.from("Posts")
+		.insert([post])
+		.single();
+	if (error) throw error;
+	return data;
+}
+
+// Update a post by ID
+export async function updatePost(id, updates) {
+	const { data, error } = await supabase
+		.from("Posts")
+		.update(updates)
+		.eq("id", id)
+		.single();
+	if (error) throw error;
+	return data;
+}
+
+// Delete a post by ID
+export async function deletePost(id) {
+	const { error } = await supabase.from("Posts").delete().eq("id", id);
+	if (error) throw error;
+}
+
+// Upvote a post by ID (increments upvotes)
+export async function upvotePost(id) {
+	const { data, error } = await supabase.rpc("increment_upvotes", {
+		post_id: id,
+	});
+	if (error) throw error;
+	return data;
+}

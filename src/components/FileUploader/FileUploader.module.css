@@ -1,0 +1,12 @@
+/* FileUploader.module.css */
+/* Styles for the file uploader component. */
+
+.fileUploader {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.fileUploader input[type="file"] {
+	font-size: 1rem;
+}

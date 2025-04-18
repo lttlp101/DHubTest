@@ -1,0 +1,14 @@
+/* variables.css */
+/* CSS variables for theming (Diablo red, dark, light, etc.) */
+
+:root {
+	--color-primary: #b11226; /* Diablo red */
+	--color-bg: #f6f6f6;
+	--color-text: #222;
+	--color-accent: #d32f2f;
+	--color-border: #e0e0e0;
+	--color-dark-bg: #181818;
+	--color-dark-text: #f6f6f6;
+	--color-light-bg: #fff;
+	--color-light-text: #222;
+}
