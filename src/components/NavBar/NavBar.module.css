@@ -2,7 +2,7 @@
 /* Diablo Hub navigation bar styles. Default background: Diablo red. */
 
 .navbar {
-	background-color: var(--color-primary);
+	background-color: var(--navbar-bg);
 	color: var(--color-text-inverse);
 	padding: var(--spacing-md) var(--spacing-xxl);
 	display: flex;
@@ -18,14 +18,20 @@
 	font-size: var(--font-size-xl);
 	font-weight: 700;
 	color: var(--color-text-inverse);
-	text-decoration: none;
 	font-family: "Cinzel", serif;
 	text-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
 	letter-spacing: 1px;
+	text-decoration: none;
 }
 
 .logo:hover {
 	color: var(--color-accent);
+	text-decoration: none;
+}
+
+.title {
+	text-decoration: none !important;
+	color: var(--color-text-inverse) !important;
 }
 
 .searchForm {
@@ -64,6 +70,7 @@
 	font-weight: 500;
 	transition: color var(--transition-fast);
 	position: relative;
+	text-decoration: none;
 }
 
 .link:hover {

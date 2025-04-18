@@ -29,6 +29,9 @@
 	--color-card-bg: #ffffff;
 	--color-dark-bg: #222222;
 
+	/* Navbar BG Color */
+	--navbar-bg: var(--color-primary);
+
 	/* Text Colors */
 	--color-text: #333333;
 	--color-text-light: #666666;

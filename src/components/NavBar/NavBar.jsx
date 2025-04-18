@@ -1,6 +1,8 @@
 // NavBar.jsx
 // Diablo Hub navigation bar with logo, search, navigation links, and theme switcher.
-import React, { useState } from "react";
+// src/components/NavBar/NavBar.jsx
+
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
@@ -13,10 +15,18 @@ const NavBar = () => {
 	const [search, setSearch] = useState("");
 	const navigate = useNavigate();
 
+	// Effect to synchronize theme if changed elsewhere
+	useEffect(() => {
+		const savedTheme = localStorage.getItem("diablohub_theme");
+		if (savedTheme && savedTheme !== theme) {
+			setTheme(savedTheme);
+		}
+	}, []);
+
 	const handleThemeChange = (themeName) => {
+		console.log("Theme changed to:", themeName); // Debug log
 		setTheme(themeName);
 		applyTheme(themeName);
-		localStorage.setItem("diablohub_theme", themeName);
 	};
 
 	const handleSearch = (e) => {
@@ -27,17 +37,12 @@ const NavBar = () => {
 	};
 
 	return (
-		<nav className={styles.navbar}>
+		<nav
+			className={styles.navbar}
+			style={{ backgroundColor: "var(--navbar-bg)" }} // Use dynamic variable
+		>
 			<div className={styles.logo}>
-				<Link
-					to="/"
-					style={{
-						color: "#fff",
-						textDecoration: "none",
-						fontWeight: "bold",
-						fontSize: "1.5rem",
-					}}
-				>
+				<Link to="/" className={styles.title}>
 					DiabloHub
 				</Link>
 			</div>

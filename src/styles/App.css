@@ -4,3 +4,34 @@
 	padding: 2rem;
 	text-align: center;
 }
+
+body {
+	font-family: "Poppins", sans-serif;
+	background-color: var(--color-bg);
+	color: var(--color-text);
+	line-height: 1.6;
+}
+
+/* src/styles/index.css - add this to the existing file */
+
+/* Dark theme specific overrides */
+[data-theme="dark"] {
+	background-color: var(--color-bg);
+}
+
+[data-theme="dark"] .postCard,
+[data-theme="dark"] .postDetailPage,
+[data-theme="dark"] .postForm {
+	background-color: var(--color-card-bg);
+	color: var(--color-text);
+}
+
+/* Light theme specific overrides */
+[data-theme="light"] {
+	background-color: var(--color-bg);
+}
+
+/* Diablo theme specific overrides */
+[data-theme="diablo"] .postCard {
+	border-left: 4px solid var(--color-primary);
+}
