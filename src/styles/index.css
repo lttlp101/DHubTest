@@ -4,7 +4,7 @@
 /* @import url("./fonts.css"); */
 
 /* Import variables.css */
-/* @import url("./variables.css"); */
+@import url("./variables.css");
 
 /* CSS Reset */
 *,
