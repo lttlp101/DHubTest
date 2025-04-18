@@ -4,6 +4,7 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./layout/Layout";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Lazy load route components
 const Home = lazy(() => import("./routes/Home"));
@@ -21,8 +22,22 @@ const router = createBrowserRouter([
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "post/:id", element: <Post /> },
-			{ path: "create", element: <CreatePost /> },
-			{ path: "edit/:id", element: <EditPost /> },
+			{
+				path: "create",
+				element: (
+					<ProtectedRoute>
+						<CreatePost />
+					</ProtectedRoute>
+				),
+			},
+			{
+				path: "edit/:id",
+				element: (
+					<ProtectedRoute>
+						<EditPost />
+					</ProtectedRoute>
+				),
+			},
 			{ path: "login", element: <Login /> },
 			{ path: "register", element: <Register /> },
 			{ path: "*", element: <NotFound /> },

@@ -1,12 +1,12 @@
-// anonymousUser.js
+// src/services/anonymousUser.js
 // Utility for assigning and managing an anonymous user ID on app launch.
 
-import { createClient } from "@supabase/supabase-js";
+//
 import supabase from "./supabaseClient";
 
 // Generate a random username like "Anonymous-xxxx"
-function generateAnonymousUsername(uuid) {
-	return "Anonymous-" + uuid.slice(0, 8);
+function generateAnonymousUsername() {
+	return "Anonymous-" + Math.random().toString(36).substring(2, 10);
 }
 
 // Get or create the anonymous user in localStorage and Supabase
@@ -20,21 +20,28 @@ export async function getOrCreateAnonymousUser() {
 
 	// Generate a new UUID
 	const uuid = crypto.randomUUID();
-	const anonUsername = generateAnonymousUsername(uuid);
+	const anonUsername = generateAnonymousUsername();
 
-	// Insert into Supabase Users table
-	const { data, error } = await supabase
-		.from("Users")
-		.insert([{ id: uuid, username: anonUsername }])
-		.single();
+	try {
+		// Insert into Supabase Users table
+		const { data, error } = await supabase
+			.from("users")
+			.insert([
+				{
+					id: uuid,
+					username: anonUsername,
+					password_hash: "anonymous",
+				},
+			]);
 
-	if (error) {
+		if (error) throw error;
+
+		localStorage.setItem("diablohub_user_id", uuid);
+		localStorage.setItem("diablohub_username", anonUsername);
+
+		return { id: uuid, username: anonUsername };
+	} catch (error) {
 		console.error("Failed to create anonymous user:", error);
 		throw error;
 	}
-
-	localStorage.setItem("diablohub_user_id", uuid);
-	localStorage.setItem("diablohub_username", anonUsername);
-
-	return { id: uuid, username: anonUsername };
 }

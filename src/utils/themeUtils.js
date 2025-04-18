@@ -1,4 +1,4 @@
-// themeUtils.js
+// src/utils/themeUtils.js
 // Utility functions for managing and switching color themes (e.g., Diablo red, dark, light).
 
 const THEMES = {
@@ -22,13 +22,18 @@ const THEMES = {
 	},
 };
 
-export function applyTheme(themeName) {
+export const applyTheme = (themeName) => {
 	const theme = THEMES[themeName] || THEMES.diablo;
+
+	// Apply CSS variables to root element
 	Object.entries(theme).forEach(([key, value]) => {
 		document.documentElement.style.setProperty(key, value);
 	});
-}
 
-export function getAvailableThemes() {
+	// Store theme preference
+	localStorage.setItem("diablohub_theme", themeName);
+};
+
+export const getAvailableThemes = () => {
 	return Object.keys(THEMES);
-}
+};

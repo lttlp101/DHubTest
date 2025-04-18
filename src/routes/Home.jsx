@@ -1,6 +1,7 @@
 // Home.jsx
 // Displays the main feed of posts, with sorting, searching, and filtering.
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchPosts } from "../services/postsService";
 import PostCard from "../components/PostCard/PostCard";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
@@ -12,6 +13,8 @@ const Home = () => {
 	const [order, setOrder] = useState("desc");
 	const [search, setSearch] = useState("");
 	const [flag, setFlag] = useState("");
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadPosts = async () => {
@@ -59,9 +62,7 @@ const Home = () => {
 					<PostCard
 						key={post.id}
 						post={post}
-						onClick={() =>
-							(window.location.href = `/post/${post.id}`)
-						}
+						onClick={() => navigate(`/post/${post.id}`)}
 					/>
 				))
 			)}

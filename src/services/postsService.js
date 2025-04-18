@@ -45,13 +45,29 @@ export async function createPost(post) {
 	return data;
 }
 
-// Update a post by ID
-export async function updatePost(id, updates) {
+// Update a post by ID with secret key
+export async function updatePost(id, updates, secretKey) {
+	// First check if post exists and secret key matches
+	const { data: post, error: fetchError } = await supabase
+		.from("posts")
+		.select("secret_key")
+		.eq("id", id)
+		.single();
+
+	if (fetchError) throw fetchError;
+
+	// Verify secret key
+	if (post.secret_key !== secretKey) {
+		throw new Error("Unauthorized: Secret key doesn't match");
+	}
+
+	// If authorized, update the post
 	const { data, error } = await supabase
-		.from("Posts")
+		.from("posts")
 		.update(updates)
 		.eq("id", id)
 		.single();
+
 	if (error) throw error;
 	return data;
 }
