@@ -4,7 +4,7 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./layout/Layout";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 // Lazy load route components
 const Home = lazy(() => import("./routes/Home"));

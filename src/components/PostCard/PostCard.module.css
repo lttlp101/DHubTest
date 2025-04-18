@@ -2,15 +2,89 @@
 /* Styles for displaying a post in the feed. */
 
 .postCard {
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-	padding: 1.5rem 2rem;
-	margin-bottom: 1.5rem;
+	background-color: var(--color-card-bg);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
+	padding: var(--spacing-lg);
+	margin-bottom: var(--spacing-lg);
+	transition: box-shadow var(--transition-fast);
 	cursor: pointer;
-	transition: box-shadow 0.2s;
+	border-left: 4px solid var(--color-primary);
 }
 
 .postCard:hover {
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+	box-shadow: var(--shadow-md);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	color: var(--color-text-light);
+	font-size: var(--font-size-sm);
+	margin-bottom: var(--spacing-sm);
+}
+
+.time {
+	font-style: italic;
+}
+
+.upvotes {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+}
+
+.upvotes::before {
+	content: "👍";
+}
+
+.title {
+	font-size: var(--font-size-lg);
+	margin-bottom: var(--spacing-md);
+	color: var(--color-text);
+	transition: color var(--transition-fast);
+}
+
+.postCard:hover .title {
+	color: var(--color-primary);
+}
+
+.content {
+	margin-bottom: var(--spacing-md);
+	color: var(--color-text);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.image {
+	width: 100%;
+	max-height: 300px;
+	object-fit: cover;
+	margin-bottom: var(--spacing-md);
+	border-radius: var(--radius-sm);
+}
+
+.footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: var(--spacing-md);
+}
+
+.flags {
+	display: flex;
+	gap: var(--spacing-sm);
+	margin-top: var(--spacing-sm);
+}
+
+.flag {
+	background-color: rgba(153, 0, 0, 0.1);
+	color: var(--color-primary);
+	padding: 2px var(--spacing-sm);
+	border-radius: var(--radius-sm);
+	font-size: var(--font-size-xs);
+	font-weight: 500;
 }

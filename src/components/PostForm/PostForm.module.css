@@ -2,13 +2,85 @@
 /* Styles for the post creation/edit form. */
 
 .postForm {
-	background: #fff;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-	padding: 2rem 2.5rem;
-	margin: 2rem auto;
-	max-width: 500px;
+	background-color: var(--color-card-bg);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
+	padding: var(--spacing-xl);
+	margin: var(--spacing-xl) auto;
+	max-width: 600px;
 	display: flex;
 	flex-direction: column;
-	gap: 1.2rem;
+	gap: var(--spacing-lg);
+}
+
+.formTitle {
+	font-size: var(--font-size-xl);
+	color: var(--color-text);
+	margin-bottom: var(--spacing-lg);
+	text-align: center;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-sm);
+}
+
+.formGroup label {
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.titleInput,
+.contentInput,
+.imageUrlInput {
+	padding: var(--spacing-md);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	transition: border-color var(--transition-fast);
+}
+
+.titleInput:focus,
+.contentInput:focus,
+.imageUrlInput:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+}
+
+.contentInput {
+	min-height: 200px;
+	resize: vertical;
+}
+
+.submitButton {
+	background-color: var(--color-primary);
+	color: var(--color-text-inverse);
+	padding: var(--spacing-md);
+	border: none;
+	border-radius: var(--radius-sm);
+	font-weight: 500;
+	margin-top: var(--spacing-md);
+	transition: background-color var(--transition-fast);
+}
+
+.submitButton:hover {
+	background-color: var(--color-primary-dark);
+}
+
+.submitButton:disabled {
+	background-color: var(--color-text-light);
+	cursor: not-allowed;
+}
+
+.errorMessage {
+	color: var(--color-error);
+	font-size: var(--font-size-sm);
+	margin-top: var(--spacing-xs);
+}
+
+.optionalText {
+	color: var(--color-text-light);
+	font-size: var(--font-size-sm);
+	margin-left: var(--spacing-sm);
 }

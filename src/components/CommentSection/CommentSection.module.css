@@ -2,8 +2,79 @@
 /* Styles for the comment section under a post. */
 
 .commentSection {
-	background: #f6f6f6;
-	border-radius: 8px;
-	padding: 1rem 1.5rem;
-	margin-top: 1.5rem;
+	margin-top: var(--spacing-xl);
+}
+
+.commentsList {
+	margin-bottom: var(--spacing-xl);
+}
+
+.comment {
+	background-color: rgba(245, 245, 245, 0.5);
+	border-radius: var(--radius-sm);
+	padding: var(--spacing-md);
+	margin-bottom: var(--spacing-md);
+	border-left: 3px solid var(--color-primary-light);
+	position: relative;
+}
+
+.commentHeader {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: var(--spacing-sm);
+}
+
+.commentAuthor {
+	font-weight: 600;
+	color: var(--color-text);
+}
+
+.commentTime {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-light);
+}
+
+.commentContent {
+	color: var(--color-text);
+	line-height: 1.6;
+}
+
+.addCommentForm {
+	margin-top: var(--spacing-lg);
+}
+
+.commentInput {
+	width: 100%;
+	padding: var(--spacing-md);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	margin-bottom: var(--spacing-md);
+	resize: vertical;
+	min-height: 80px;
+	transition: border-color var(--transition-fast);
+}
+
+.commentInput:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+}
+
+.submitCommentButton {
+	background-color: var(--color-primary);
+	color: var(--color-text-inverse);
+	padding: var(--spacing-sm) var(--spacing-lg);
+	border: none;
+	border-radius: var(--radius-sm);
+	font-weight: 500;
+	transition: background-color var(--transition-fast);
+}
+
+.submitCommentButton:hover {
+	background-color: var(--color-primary-dark);
+}
+
+.submitCommentButton:disabled {
+	background-color: var(--color-text-light);
+	cursor: not-allowed;
 }
