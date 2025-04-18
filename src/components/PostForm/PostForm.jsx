@@ -1,7 +1,7 @@
 // PostForm.jsx
 // Form for creating or editing a post: title, content, image URL, flags, video URL, upload image, secret key/userId.
 import React, { useState } from "react";
-import Button from "../components/Button/Button";
+import Button from "../Button/Button";
 import FileUploader from "../FileUploader/FileUploader";
 import { validatePost } from "../../utils/validation";
 import styles from "./PostForm.module.css";

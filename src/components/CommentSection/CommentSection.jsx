@@ -1,7 +1,7 @@
 // CommentSection.jsx
 // Displays comments for a post and allows adding/deleting comments.
 import React from "react";
-import Button from "../components/Button/Button";
+import Button from "../Button/Button";
 import styles from "./CommentSection.module.css";
 
 const CommentSection = ({
