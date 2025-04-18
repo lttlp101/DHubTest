@@ -6,7 +6,7 @@ import { uploadImage } from "../services/storageService";
 import PostForm from "../components/PostForm/PostForm";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
-import { getOrCreateAnonymousUser } from "../utils/anonymousUser";
+import { getOrCreateAnonymousUser } from "../services/anonymousUser";
 
 const CreatePost = () => {
 	const [loading, setLoading] = useState(false);
