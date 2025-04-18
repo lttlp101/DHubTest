@@ -2,7 +2,7 @@
 // Utility for assigning and managing an anonymous user ID on app launch.
 
 import { createClient } from "@supabase/supabase-js";
-import supabase from "../services/supabaseClient";
+import supabase from "./supabaseClient";
 
 // Generate a random username like "Anonymous-xxxx"
 function generateAnonymousUsername(uuid) {
