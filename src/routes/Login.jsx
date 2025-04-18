@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../components/Button/Button";
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -46,7 +46,7 @@ const Login = () => {
 					/>
 				</div>
 				{error && <div style={{ color: "red" }}>{error}</div>}
-				<Button type="submit" variant="primary" fullWidth>
+				<Button type="submit" variant="primary">
 					Login
 				</Button>
 			</form>

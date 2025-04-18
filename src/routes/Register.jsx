@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../components/Button/Button";
 
 const Register = () => {
 	const [username, setUsername] = useState("");

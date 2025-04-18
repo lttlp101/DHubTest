@@ -2,7 +2,7 @@
 // Button to upvote a post, displays current upvote count.
 
 import React from "react";
-import Button from "../Button/Button";
+import Button from "../components/Button/Button";
 import styles from "./UpvoteButton.module.css";
 
 const UpvoteButton = ({ count, onUpvote, disabled }) => {

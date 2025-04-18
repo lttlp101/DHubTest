@@ -15,7 +15,7 @@ import CommentSection from "../components/CommentSection/CommentSection";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../components/UpvoteButton/UpvoteButton";
 import { useParams, useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../components/Button/Button";
 
 const Post = () => {
 	const { id } = useParams();
