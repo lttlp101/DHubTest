@@ -1,7 +1,9 @@
-// CommentSection.jsx
+// src/components/CommentSection/CommentSection.jsx
 // Displays comments for a post and allows adding/deleting comments.
+
 import React from "react";
 import Button from "../Button/Button";
+import { isContentOwner } from "../../services/anonymousUser";
 import styles from "./CommentSection.module.css";
 
 const CommentSection = ({
@@ -10,56 +12,64 @@ const CommentSection = ({
 	onDelete,
 	commentText,
 	setCommentText,
-	userId,
+	currentUserId,
 }) => {
 	return (
 		<div className={styles.commentSection}>
-			<div>
+			<h3>Comments</h3>
+			<div className={styles.commentsList}>
 				{comments && comments.length > 0 ? (
 					comments.map((comment) => (
 						<div key={comment.id} className={styles.comment}>
-							<div>
-								<strong>
+							<div className={styles.commentHeader}>
+								<strong className={styles.commentAuthor}>
 									{comment.author_name || "Anonymous"}
 								</strong>
-								: {comment.content}
+								{comment.created_at && (
+									<span className={styles.commentTime}>
+										{new Date(
+											comment.created_at
+										).toLocaleString()}
+									</span>
+								)}
 							</div>
-							{onDelete && (
+							<div className={styles.commentContent}>
+								{comment.content}
+							</div>
+							{isContentOwner(comment.author_id) && (
 								<Button
 									className={styles.deleteBtn}
 									onClick={() => onDelete(comment.id)}
 									title="Delete comment"
-									variant="primary"
-									size="medium"
+									variant="danger"
+									size="small"
 								>
-									🗑️
+									Delete
 								</Button>
 							)}
 						</div>
 					))
 				) : (
-					<div>No comments yet.</div>
+					<div className={styles.noComments}>No comments yet.</div>
 				)}
 			</div>
 			<div className={styles.addComment}>
-				<input
-					type="text"
+				<textarea
+					className={styles.commentInput}
 					placeholder="Leave a comment..."
 					value={commentText || ""}
 					onChange={(e) =>
 						setCommentText && setCommentText(e.target.value)
 					}
-					onKeyDown={(e) => {
-						if (e.key === "Enter" && onAdd) onAdd();
-					}}
-				/>
+					rows={3}
+				></textarea>
 				<Button
 					onClick={onAdd}
 					disabled={!commentText || !commentText.trim()}
 					variant="primary"
-					size="medium"
+					className={styles.submitCommentButton}
 				>
-					Add
+					Add Comment
 				</Button>
 			</div>
 		</div>

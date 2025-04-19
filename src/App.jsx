@@ -7,13 +7,13 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 // Lazy load route components
-const Home = lazy(() => import("./routes/Home"));
-const Post = lazy(() => import("./routes/Post"));
-const CreatePost = lazy(() => import("./routes/CreatePost"));
-const EditPost = lazy(() => import("./routes/EditPost"));
-const Login = lazy(() => import("./routes/Login"));
-const Register = lazy(() => import("./routes/Register"));
-const NotFound = lazy(() => import("./routes/NotFound"));
+const Home = lazy(() => import("./routes/Home/Home"));
+const Post = lazy(() => import("./routes/Post/Post"));
+const CreatePost = lazy(() => import("./routes/CreatePost/CreatePost"));
+const EditPost = lazy(() => import("./routes/EditPost/EditPost"));
+const Login = lazy(() => import("./routes/Login/Login"));
+const Register = lazy(() => import("./routes/Register/Register"));
+const NotFound = lazy(() => import("./routes/NotFound/NotFound"));
 
 const router = createBrowserRouter([
 	{

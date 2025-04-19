@@ -1,11 +1,13 @@
-// Register.jsx
-// Route for user registration with username and password (no email).
+// Login.jsx
+// Route for user login with username and password (no email).
+// Login.jsx - FIXED VERSION
 import React, { useState } from "react";
-import { registerUser } from "../services/authService";
+import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
-import Button from "../components/Button/Button";
+import Button from "../../components/Button/Button";
+import styles from "./Login.module.css";
 
-const Register = () => {
+const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -15,17 +17,22 @@ const Register = () => {
 		e.preventDefault();
 		setError("");
 		try {
-			const user = await registerUser({ username, password });
-			localStorage.setItem("diablohub_user", JSON.stringify(user));
+			const user = await loginUser({ username, password });
+			// Success - navigate to home
+			// No need to store in localStorage as authService already does it
 			navigate("/");
 		} catch (err) {
-			setError("Registration failed. Username may already exist.");
+			console.error("Login error:", err);
+			setError(
+				"Login failed: " +
+					(err.message || "Invalid username or password")
+			);
 		}
 	};
 
 	return (
 		<div>
-			<h2>Register</h2>
+			<h2>Login</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label>Username:</label>
@@ -46,12 +53,12 @@ const Register = () => {
 					/>
 				</div>
 				{error && <div style={{ color: "red" }}>{error}</div>}
-				<Button type="submit" variant="primary" fullWidth>
-					Register
+				<Button type="submit" variant="primary">
+					Login
 				</Button>
 			</form>
 		</div>
 	);
 };
 
-export default Register;
+export default Login;

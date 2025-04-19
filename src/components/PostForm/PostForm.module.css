@@ -53,6 +53,12 @@
 	resize: vertical;
 }
 
+.fileUploadSection {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
 .submitButton {
 	background-color: var(--color-primary);
 	color: var(--color-text-inverse);

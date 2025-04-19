@@ -9,7 +9,7 @@ export async function fetchPosts({
 	search = "",
 	flag = "",
 } = {}) {
-	let query = supabase.from("Posts").select("*");
+	let query = supabase.from("posts").select("*");
 
 	if (search) {
 		query = query.ilike("title", `%${search}%`);
@@ -27,7 +27,7 @@ export async function fetchPosts({
 // Fetch a single post by ID
 export async function fetchPostById(id) {
 	const { data, error } = await supabase
-		.from("Posts")
+		.from("posts")
 		.select("*")
 		.eq("id", id)
 		.single();
@@ -38,7 +38,7 @@ export async function fetchPostById(id) {
 // Create a new post
 export async function createPost(post) {
 	const { data, error } = await supabase
-		.from("Posts")
+		.from("posts")
 		.insert([post])
 		.single();
 	if (error) throw error;
@@ -50,15 +50,21 @@ export async function updatePost(id, updates, secretKey) {
 	// First check if post exists and secret key matches
 	const { data: post, error: fetchError } = await supabase
 		.from("posts")
-		.select("secret_key")
+		.select("secret_key, author_id")
 		.eq("id", id)
 		.single();
 
 	if (fetchError) throw fetchError;
 
 	// Verify secret key
-	if (post.secret_key !== secretKey) {
+	if (!post || post.secret_key !== secretKey) {
 		throw new Error("Unauthorized: Secret key doesn't match");
+	}
+
+	// Verify the current user is the author
+	const currentUserId = localStorage.getItem("diablohub_user_id");
+	if (!currentUserId || post.author_id !== currentUserId) {
+		throw new Error("Unauthorized: You are not the author of this post");
 	}
 
 	// If authorized, update the post
@@ -73,8 +79,28 @@ export async function updatePost(id, updates, secretKey) {
 }
 
 // Delete a post by ID
-export async function deletePost(id) {
-	const { error } = await supabase.from("Posts").delete().eq("id", id);
+export async function deletePost(id, secretKey) {
+	// First check if post exists and secret key matches
+	const { data: post, error: fetchError } = await supabase
+		.from("posts")
+		.select("secret_key, author_id")
+		.eq("id", id)
+		.single();
+
+	if (fetchError) throw fetchError;
+
+	// Verify secret key
+	if (!post || post.secret_key !== secretKey) {
+		throw new Error("Unauthorized: Secret key doesn't match");
+	}
+
+	// Verify the current user is the author
+	const currentUserId = localStorage.getItem("diablohub_user_id");
+	if (!currentUserId || post.author_id !== currentUserId) {
+		throw new Error("Unauthorized: You are not the author of this post");
+	}
+
+	const { error } = await supabase.from("posts").delete().eq("id", id);
 	if (error) throw error;
 }
 

@@ -2,9 +2,9 @@
 // Displays the main feed of posts, with sorting, searching, and filtering.
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchPosts } from "../services/postsService";
-import PostCard from "../components/PostCard/PostCard";
-import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { fetchPosts } from "../../services/postsService";
+import PostCard from "../../components/PostCard/PostCard";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);
