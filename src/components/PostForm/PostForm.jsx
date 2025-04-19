@@ -17,6 +17,10 @@ const PostForm = ({
 	isEdit,
 	requireSecretKey = false,
 }) => {
+	// Use the initialValues.repost_id as a direct value instead of useState
+	// This avoids any issues with state timing
+	const repost_id = initialValues.repost_id || "";
+
 	const [title, setTitle] = useState(initialValues.title || "");
 	const [content, setContent] = useState(initialValues.content || "");
 	const [image_url, setImageUrl] = useState(initialValues.image_url || "");
@@ -24,8 +28,6 @@ const PostForm = ({
 	const [video_url, setVideoUrl] = useState(initialValues.video_url || "");
 	const [flags, setFlags] = useState(initialValues.flags || []);
 	const [secret_key, setSecretKey] = useState(initialValues.secret_key || "");
-	// Using array destructuring to only get the state value since we don't need to update it
-	const [repost_id] = useState(initialValues.repost_id || "");
 	const [error, setError] = useState("");
 
 	const handleFlagChange = (flag) => {

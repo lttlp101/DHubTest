@@ -40,17 +40,12 @@ export async function createPost(post) {
 	// Create a copy of the post object to avoid modifying the original
 	const postData = { ...post };
 
-	// Ensure repost_id is properly handled
-	// Only include repost_id if it's not empty/null/undefined
-	if (
-		postData.repost_id === null ||
-		postData.repost_id === undefined ||
-		postData.repost_id === ""
-	) {
-		delete postData.repost_id;
-	} else {
-		// Log for debugging
+	// Simplified condition that preserves repost_id if it exists
+	if (postData.repost_id) {
 		console.log("Creating repost with repost_id:", postData.repost_id);
+	} else {
+		console.log("Creating regular post without repost_id");
+		delete postData.repost_id;
 	}
 
 	// Insert post into Supabase

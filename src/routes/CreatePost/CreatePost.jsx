@@ -23,12 +23,13 @@ const CreatePost = () => {
 	useEffect(() => {
 		const searchParams = new URLSearchParams(location.search);
 		const repostParam = searchParams.get("repost");
+
 		if (repostParam) {
 			setRepostId(repostParam);
 		}
 	}, [location]);
 
-	// Modify handleSubmit to include repost_id
+	// HandleSubmit to include repost_id
 	const handleSubmit = async (values) => {
 		setLoading(true);
 		setError("");
@@ -74,7 +75,7 @@ const CreatePost = () => {
 				secret_key: values.secret_key,
 				author_id: anonUser.id,
 				author_name: anonUser.username,
-				repost_id: values.repost_id,
+				repost_id: values.repost_id || repostId,
 			};
 
 			setUploadProgress(90);
