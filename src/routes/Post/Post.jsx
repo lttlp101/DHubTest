@@ -1,6 +1,5 @@
-// Post.jsx
+// src/routes/Post/Post.jsx
 // Displays a single post in detail, including content, image, comments, upvotes, and edit/delete options.
-// src/routes/Post.jsx - IMPROVED SECTIONS
 
 import React, { useEffect, useState } from "react";
 import {

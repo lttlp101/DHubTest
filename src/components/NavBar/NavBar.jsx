@@ -1,15 +1,13 @@
-// NavBar.jsx
-// Diablo Hub navigation bar with logo, search, navigation links, and theme switcher.
 // src/components/NavBar/NavBar.jsx
+// Diablo Hub navigation bar with title, search, navigation links, and theme switcher.
 
-// src/components/NavBar/NavBar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { logoutUser } from "../../services/authService";
 import { getCurrentUser } from "../../services/anonymousUser";
 import { applyTheme } from "../../utils/themeUtils";
+import styles from "./NavBar.module.css";
 
 const NavBar = () => {
 	const [theme, setTheme] = useState(

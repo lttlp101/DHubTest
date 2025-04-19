@@ -1,6 +1,6 @@
-// NotFound.jsx
+// src/routes/NotFound/NotFound.jsx
 // Route for displaying a 404 Not Found page.
-// NotFound.jsx updated with CSS modules
+
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./NotFound.module.css";

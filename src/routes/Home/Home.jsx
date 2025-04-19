@@ -1,6 +1,6 @@
-// Home.jsx
-// Displays the main feed of posts, with sorting, searching, and filtering.
 // src/routes/Home/Home.jsx
+// Displays the main feed of posts, with sorting, searching, and filtering.
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import { fetchPosts } from "../../services/postsService";

@@ -1,8 +1,9 @@
-// Register.jsx
+// src/routes/Register/Register.jsx
 // Route for user registration with username and password (no email).
+
 import React, { useState } from "react";
 import { registerUser } from "../../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import styles from "./Register.module.css";
 
@@ -17,7 +18,6 @@ const Register = () => {
 		setError("");
 		try {
 			const user = await registerUser({ username, password });
-			localStorage.setItem("diablohub_username", JSON.stringify(user));
 			navigate("/");
 		} catch (err) {
 			setError("Registration failed. Username may already exist.");
@@ -25,32 +25,54 @@ const Register = () => {
 	};
 
 	return (
-		<div>
-			<h2>Register</h2>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label>Username:</label>
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
+		<div className={styles.registerContainer}>
+			<div className={styles.registerCard}>
+				<h2 className={styles.registerTitle}>Create Account</h2>
+
+				<form className={styles.registerForm} onSubmit={handleSubmit}>
+					<div className={styles.formGroup}>
+						<label className={styles.formLabel}>Username:</label>
+						<input
+							className={styles.formInput}
+							type="text"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+						/>
+					</div>
+
+					<div className={styles.formGroup}>
+						<label className={styles.formLabel}>Password:</label>
+						<input
+							className={styles.formInput}
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+						<p className={styles.passwordRequirements}>
+							Password must be at least 3 characters long
+						</p>
+					</div>
+
+					{error && (
+						<div className={styles.errorMessage}>{error}</div>
+					)}
+
+					<Button type="submit" variant="primary" fullWidth>
+						Register
+					</Button>
+				</form>
+
+				<div className={styles.loginOption}>
+					<p>
+						Already have an account?{" "}
+						<Link to="/login" className={styles.loginLink}>
+							LogIn here
+						</Link>
+					</p>
 				</div>
-				<div>
-					<label>Password:</label>
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</div>
-				{error && <div style={{ color: "red" }}>{error}</div>}
-				<Button type="submit" variant="primary" fullWidth>
-					Register
-				</Button>
-			</form>
+			</div>
 		</div>
 	);
 };

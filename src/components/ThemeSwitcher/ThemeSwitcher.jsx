@@ -1,6 +1,6 @@
 // src/components/ThemeSwitcher/ThemeSwitcher.jsx
 // Allows user to switch between color themes (e.g., Diablo red, dark, custom).
-//
+
 import React from "react";
 import styles from "./ThemeSwitcher.module.css";
 

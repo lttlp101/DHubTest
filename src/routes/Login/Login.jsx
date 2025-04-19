@@ -1,6 +1,6 @@
-// Login.jsx
+// src/routes/Login/Login.jsx
 // Route for user login with username and password (no email).
-// Updated Login.jsx with Register option
+
 import React, { useState, useEffect } from "react";
 import { loginUser } from "../../services/authService";
 import { Link, useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const Login = () => {
 	return (
 		<div className={styles.loginContainer}>
 			<div className={styles.loginCard}>
-				<h2 className={styles.loginTitle}>Login</h2>
+				<h2 className={styles.loginTitle}>LogIn</h2>
 				<form className={styles.loginForm} onSubmit={handleSubmit}>
 					<div className={styles.formGroup}>
 						<label className={styles.formLabel}>Username:</label>
@@ -68,7 +68,7 @@ const Login = () => {
 						<div className={styles.errorMessage}>{error}</div>
 					)}
 					<Button type="submit" variant="primary" fullWidth>
-						Login
+						LogIn
 					</Button>
 				</form>
 

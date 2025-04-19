@@ -1,9 +1,9 @@
-// FileUploader.jsx
-// Handles uploading images to Supabase Storage and returns the uploaded file URL.
 // src/components/FileUploader/FileUploader.jsx
+// Handles uploading images to Supabase Storage and returns the uploaded file URL.
+
 import React, { useState } from "react";
-import styles from "./FileUploader.module.css";
 import Button from "../Button/Button";
+import styles from "./FileUploader.module.css";
 
 const FileUploader = ({ onUpload }) => {
 	const [selectedFile, setSelectedFile] = useState(null);

@@ -1,4 +1,5 @@
 /* src/components/FileUploader/FileUploader.module.css */
+
 .fileUploader {
 	display: flex;
 	flex-direction: column;
