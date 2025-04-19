@@ -126,6 +126,7 @@ const PostForm = ({
 								type="checkbox"
 								checked={flags.includes(flag)}
 								onChange={() => handleFlagChange(flag)}
+								className={styles.flagCheckbox}
 							/>
 							{flag}
 						</label>

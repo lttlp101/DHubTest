@@ -58,6 +58,16 @@
 	gap: var(--spacing-xs);
 }
 
+.flagLabel {
+	font-weight: 500;
+	color: var(--color-text);
+	margin-left: var(--spacing-sm);
+}
+
+.flagCheckbox {
+	margin-right: var(--spacing-xs);
+}
+
 .submitButton {
 	background-color: var(--color-primary);
 	color: var(--color-text-inverse);
