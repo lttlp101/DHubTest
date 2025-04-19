@@ -1,0 +1,31 @@
+/* src/components/VideoPlayer/VideoPlayer.module.css */
+
+.videoContainer {
+	margin: var(--spacing-md) 0;
+	width: 100%;
+	max-width: 640px;
+	border-radius: var(--radius-md);
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+}
+
+.video {
+	width: 100%;
+	display: block;
+	border-radius: var(--radius-md);
+}
+
+.videoFrame {
+	width: 100%;
+	aspect-ratio: 16/9;
+	border: none;
+}
+
+.videoError {
+	padding: var(--spacing-md);
+	background-color: rgba(220, 53, 69, 0.1);
+	color: var(--color-error);
+	border-radius: var(--radius-md);
+	font-size: var(--font-size-sm);
+	text-align: center;
+}

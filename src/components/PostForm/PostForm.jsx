@@ -25,6 +25,23 @@ const PostForm = ({
 	const [repost_id, setRepostId] = useState(initialValues.repost_id || "");
 	const [error, setError] = useState("");
 
+	// Validate video URLs
+	const validateVideoUrl = (url) => {
+		if (!url) return true; // Optional field
+
+		// Check if it's a direct video URL
+		const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
+		const hasVideoExtension = videoExtensions.some((ext) =>
+			url.toLowerCase().endsWith(ext)
+		);
+
+		// Check if it's a YouTube URL
+		const isYouTube =
+			url.includes("youtube.com/watch") || url.includes("youtu.be/");
+
+		return hasVideoExtension || isYouTube;
+	};
+
 	const handleFlagChange = (flag) => {
 		setFlags((prev) =>
 			prev.includes(flag)
@@ -36,6 +53,14 @@ const PostForm = ({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const errors = validatePost({ title, content });
+
+		// Validate video URL if provided
+		if (video_url && !validateVideoUrl(video_url)) {
+			setError(
+				"Please enter a valid video URL (direct video file or YouTube link)"
+			);
+			return;
+		}
 
 		if (Object.keys(errors).length > 0) {
 			setError(errors.title || errors.content);
@@ -117,11 +142,15 @@ const PostForm = ({
 				<input
 					id="video_url"
 					type="text"
-					placeholder="Video URL"
+					placeholder="Direct video URL or YouTube link"
 					value={video_url}
 					onChange={(e) => setVideoUrl(e.target.value)}
 					className={styles.imageUrlInput}
 				/>
+				<small className={styles.helperText}>
+					Supported formats: YouTube links or direct video URLs (.mp4,
+					.webm, .ogg)
+				</small>
 			</div>
 
 			<div className={styles.formGroup}>

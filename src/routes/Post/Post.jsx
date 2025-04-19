@@ -20,6 +20,7 @@ import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
 import Button from "../../components/Button/Button";
 import { formatDate } from "../../utils/formatDate";
 import RepostedPost from "../../components/RepostedPost/RepostedPost";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import styles from "./Post.module.css";
 
 const Post = () => {
@@ -162,11 +163,7 @@ const Post = () => {
 
 			{post.video_url && (
 				<div className={styles.videoContainer}>
-					<video
-						src={post.video_url}
-						controls
-						className={styles.postVideo}
-					/>
+					<VideoPlayer url={post.video_url} />
 				</div>
 			)}
 
