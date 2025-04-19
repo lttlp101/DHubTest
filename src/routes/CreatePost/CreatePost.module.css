@@ -49,3 +49,16 @@
 	border-left: 4px solid var(--color-accent);
 	border-radius: var(--radius-sm);
 }
+
+.repostPreview {
+	margin: var(--spacing-lg) 0;
+	padding: var(--spacing-md);
+	background-color: rgba(255, 204, 0, 0.05);
+	border-radius: var(--radius-md);
+}
+
+.repostPreview h3 {
+	margin-bottom: var(--spacing-md);
+	color: var(--color-text);
+	font-size: var(--font-size-lg);
+}

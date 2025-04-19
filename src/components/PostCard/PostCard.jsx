@@ -8,7 +8,9 @@ import styles from "./PostCard.module.css";
 const PostCard = ({ post, onClick }) => {
 	return (
 		<div
-			className={styles.postCard}
+			className={`${styles.postCard} ${
+				post.repost_id ? styles.repost : ""
+			}`}
 			onClick={onClick}
 			tabIndex={0}
 			role="button"
@@ -19,7 +21,12 @@ const PostCard = ({ post, onClick }) => {
 				</span>
 				<span className={styles.upvotes}>{post.upvotes} upvotes</span>
 			</div>
-			<h3 className={styles.title}>{post.title}</h3>
+			<h3 className={styles.title}>
+				{post.repost_id && (
+					<span className={styles.repostIcon}>↩️ </span>
+				)}
+				{post.title}
+			</h3>
 			{post.flags && post.flags.length > 0 && (
 				<div className={styles.flags}>
 					{post.flags.map((flag) => (

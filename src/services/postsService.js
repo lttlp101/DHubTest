@@ -37,10 +37,19 @@ export async function fetchPostById(id) {
 
 // Create a new post
 export async function createPost(post) {
+	// Handle the case when this is a repost
+	const postData = { ...post };
+
+	// If repost_id is empty string or null, remove it before sending to API
+	if (!postData.repost_id) {
+		delete postData.repost_id;
+	}
+
 	const { data, error } = await supabase
 		.from("posts")
-		.insert([post])
+		.insert([postData])
 		.single();
+
 	if (error) throw error;
 	return data;
 }

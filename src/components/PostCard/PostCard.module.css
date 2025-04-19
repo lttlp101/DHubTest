@@ -87,3 +87,12 @@
 	font-size: var(--font-size-xs);
 	font-weight: 500;
 }
+
+.repost {
+	border-left: 4px solid var(--color-accent);
+}
+
+.repostIcon {
+	margin-right: var(--spacing-xs);
+	font-size: 0.9em;
+}

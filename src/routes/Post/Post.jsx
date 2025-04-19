@@ -13,12 +13,14 @@ import {
 	deleteComment,
 } from "../../services/commentsService";
 import { getCurrentUser, isContentOwner } from "../../services/anonymousUser";
+import { useParams, useNavigate } from "react-router-dom";
 import CommentSection from "../../components/CommentSection/CommentSection";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
 import Button from "../../components/Button/Button";
 import { useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
+import RepostedPost from "../../components/RepostedPost/RepostedPost";
 import styles from "./Post.module.css";
 
 const Post = () => {
@@ -51,6 +53,10 @@ const Post = () => {
 		};
 		load();
 	}, [id]);
+
+	const handleRepost = () => {
+		navigate(`/create?repost=${id}`);
+	};
 
 	const handleUpvote = async () => {
 		setUpvoting(true);
@@ -142,6 +148,9 @@ const Post = () => {
 				</div>
 			</div>
 
+			{/* Display reposted content if this is a repost */}
+			{post.repost_id && <RepostedPost repostId={post.repost_id} />}
+
 			{post.image_url && (
 				<img
 					src={post.image_url}
@@ -168,6 +177,10 @@ const Post = () => {
 					onUpvote={handleUpvote}
 					disabled={upvoting}
 				/>
+
+				<Button onClick={handleRepost} variant="secondary">
+					Repost
+				</Button>
 
 				{isAuthor && (
 					<>

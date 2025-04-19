@@ -1,0 +1,86 @@
+/* src/components/RepostedPost/RepostedPost.module.css */
+
+.repostedPost {
+	background-color: var(--color-card-bg);
+	border-radius: var(--radius-md);
+	border-left: 4px solid var(--color-accent);
+	padding: var(--spacing-md);
+	margin: var(--spacing-md) 0;
+	box-shadow: var(--shadow-sm);
+}
+
+.repostHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: var(--spacing-sm);
+	padding-bottom: var(--spacing-sm);
+	border-bottom: 1px solid var(--color-border);
+}
+
+.repostLabel {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-light);
+	font-style: italic;
+}
+
+.originalLink {
+	color: var(--color-primary);
+	font-size: var(--font-size-sm);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+.originalLink:hover {
+	color: var(--color-primary-dark);
+	text-decoration: underline;
+}
+
+.repostTitle {
+	font-size: var(--font-size-lg);
+	margin-bottom: var(--spacing-xs);
+	color: var(--color-text);
+}
+
+.repostMeta {
+	display: flex;
+	justify-content: space-between;
+	font-size: var(--font-size-sm);
+	color: var(--color-text-light);
+	margin-bottom: var(--spacing-md);
+}
+
+.repostAuthor {
+	font-style: italic;
+}
+
+.repostImage {
+	max-width: 100%;
+	border-radius: var(--radius-sm);
+	margin-bottom: var(--spacing-md);
+	max-height: 200px;
+	object-fit: contain;
+}
+
+.repostText {
+	color: var(--color-text);
+	line-height: 1.5;
+	margin-bottom: var(--spacing-sm);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.loading,
+.error,
+.notFound {
+	padding: var(--spacing-md);
+	text-align: center;
+	color: var(--color-text-light);
+}
+
+.error {
+	color: var(--color-error);
+}

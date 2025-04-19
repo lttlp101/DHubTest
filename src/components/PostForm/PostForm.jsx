@@ -22,6 +22,7 @@ const PostForm = ({
 	const [video_url, setVideoUrl] = useState(initialValues.video_url || "");
 	const [flags, setFlags] = useState(initialValues.flags || []);
 	const [secret_key, setSecretKey] = useState(initialValues.secret_key || "");
+	const [repost_id, setRepostId] = useState(initialValues.repost_id || "");
 	const [error, setError] = useState("");
 
 	const handleFlagChange = (flag) => {
@@ -56,11 +57,17 @@ const PostForm = ({
 			video_url,
 			flags,
 			secret_key,
+			repost_id,
 		});
 	};
 
 	return (
 		<form className={styles.postForm} onSubmit={handleSubmit}>
+			{/* A hidden input for repost_id */}
+			{repost_id && (
+				<input type="hidden" name="repost_id" value={repost_id} />
+			)}
+
 			<div className={styles.formGroup}>
 				<label htmlFor="title">Title</label>
 				<input

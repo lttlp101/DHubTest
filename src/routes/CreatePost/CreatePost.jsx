@@ -7,6 +7,7 @@ import { uploadImage } from "../../services/storageService";
 import { getOrCreateAnonymousUser } from "../../services/anonymousUser";
 import PostForm from "../../components/PostForm/PostForm";
 import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import styles from "./CreatePost.module.css";
 
@@ -14,8 +15,20 @@ const CreatePost = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const [uploadProgress, setUploadProgress] = useState(0);
+	const [repostId, setRepostId] = useState(null);
 	const navigate = useNavigate();
+	const location = useLocation();
 
+	// Parse URL parameters for repost ID
+	useEffect(() => {
+		const searchParams = new URLSearchParams(location.search);
+		const repostParam = searchParams.get("repost");
+		if (repostParam) {
+			setRepostId(repostParam);
+		}
+	}, [location]);
+
+	// Modify handleSubmit to include repost_id
 	const handleSubmit = async (values) => {
 		setLoading(true);
 		setError("");
@@ -61,6 +74,7 @@ const CreatePost = () => {
 				secret_key: values.secret_key,
 				author_id: anonUser.id,
 				author_name: anonUser.username,
+				repost_id: values.repost_id,
 			};
 
 			setUploadProgress(90);
@@ -78,7 +92,7 @@ const CreatePost = () => {
 
 	return (
 		<div className={styles.createPostContainer}>
-			<h2>Create New Post</h2>
+			<h2>{repostId ? "Create Repost" : "Create New Post"}</h2>
 
 			{error && (
 				<div className={styles.errorMessage}>
@@ -100,9 +114,16 @@ const CreatePost = () => {
 			) : (
 				<PostForm
 					onSubmit={handleSubmit}
-					initialValues={{}}
+					initialValues={{ repost_id: repostId }}
 					isEdit={false}
 				/>
+			)}
+
+			{repostId && (
+				<div className={styles.repostPreview}>
+					<h3>Reposting Content</h3>
+					<RepostedPost repostId={repostId} />
+				</div>
 			)}
 
 			<div className={styles.helpText}>
