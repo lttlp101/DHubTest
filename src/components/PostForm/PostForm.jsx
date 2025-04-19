@@ -1,10 +1,12 @@
 // src/components/PostForm/PostForm.jsx
 // Form for creating or editing a post: title, content, image URL, flags, video URL, upload image, secret key/userId.
+// Implement reposting functionality and validation for required fields.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../Button/Button";
 import FileUploader from "../FileUploader/FileUploader";
 import { validatePost } from "../../utils/validation";
+import RepostedPost from "../RepostedPost/RepostedPost";
 import styles from "./PostForm.module.css";
 
 const FLAG_OPTIONS = ["Question", "Opinion"];
@@ -25,23 +27,6 @@ const PostForm = ({
 	const [repost_id, setRepostId] = useState(initialValues.repost_id || "");
 	const [error, setError] = useState("");
 
-	// Validate video URLs
-	const validateVideoUrl = (url) => {
-		if (!url) return true; // Optional field
-
-		// Check if it's a direct video URL
-		const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
-		const hasVideoExtension = videoExtensions.some((ext) =>
-			url.toLowerCase().endsWith(ext)
-		);
-
-		// Check if it's a YouTube URL
-		const isYouTube =
-			url.includes("youtube.com/watch") || url.includes("youtu.be/");
-
-		return hasVideoExtension || isYouTube;
-	};
-
 	const handleFlagChange = (flag) => {
 		setFlags((prev) =>
 			prev.includes(flag)
@@ -53,14 +38,6 @@ const PostForm = ({
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const errors = validatePost({ title, content });
-
-		// Validate video URL if provided
-		if (video_url && !validateVideoUrl(video_url)) {
-			setError(
-				"Please enter a valid video URL (direct video file or YouTube link)"
-			);
-			return;
-		}
 
 		if (Object.keys(errors).length > 0) {
 			setError(errors.title || errors.content);
@@ -88,9 +65,15 @@ const PostForm = ({
 
 	return (
 		<form className={styles.postForm} onSubmit={handleSubmit}>
-			{/* A hidden input for repost_id */}
+			{/* Show repost information if this is a repost */}
 			{repost_id && (
-				<input type="hidden" name="repost_id" value={repost_id} />
+				<div className={styles.repostContainer}>
+					<div className={styles.repostHeader}>
+						<h4>You are reposting the following content:</h4>
+					</div>
+					<RepostedPost repostId={repost_id} />
+					<input type="hidden" name="repost_id" value={repost_id} />
+				</div>
 			)}
 
 			<div className={styles.formGroup}>
@@ -98,7 +81,9 @@ const PostForm = ({
 				<input
 					id="title"
 					type="text"
-					placeholder="Title"
+					placeholder={
+						repost_id ? "Add your thoughts on this repost" : "Title"
+					}
 					value={title}
 					onChange={(e) => setTitle(e.target.value)}
 					required
@@ -107,10 +92,12 @@ const PostForm = ({
 			</div>
 
 			<div className={styles.formGroup}>
-				<label htmlFor="content">Content</label>
+				<label htmlFor="content">Content (Optional)</label>
 				<textarea
 					id="content"
-					placeholder="Content"
+					placeholder={
+						repost_id ? "Why are you sharing this post?" : "Content"
+					}
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 					rows={6}
@@ -142,15 +129,11 @@ const PostForm = ({
 				<input
 					id="video_url"
 					type="text"
-					placeholder="Direct video URL or YouTube link"
+					placeholder="Video URL"
 					value={video_url}
 					onChange={(e) => setVideoUrl(e.target.value)}
 					className={styles.imageUrlInput}
 				/>
-				<small className={styles.helperText}>
-					Supported formats: YouTube links or direct video URLs (.mp4,
-					.webm, .ogg)
-				</small>
 			</div>
 
 			<div className={styles.formGroup}>
@@ -162,7 +145,6 @@ const PostForm = ({
 								type="checkbox"
 								checked={flags.includes(flag)}
 								onChange={() => handleFlagChange(flag)}
-								className={styles.flagCheckbox}
 							/>
 							{flag}
 						</label>
@@ -199,7 +181,11 @@ const PostForm = ({
 			{error && <div className={styles.errorMessage}>{error}</div>}
 
 			<Button type="submit" variant="primary" fullWidth>
-				{isEdit ? "Update Post" : "Create Post"}
+				{isEdit
+					? "Update Post"
+					: repost_id
+					? "Share Repost"
+					: "Create Post"}
 			</Button>
 		</form>
 	);

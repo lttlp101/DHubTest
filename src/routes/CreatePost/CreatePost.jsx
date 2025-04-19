@@ -1,14 +1,14 @@
 // src/routes/CreatePost.jsx
 // Route for creating a new post.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createPost } from "../../services/postsService";
 import { uploadImage } from "../../services/storageService";
 import { getOrCreateAnonymousUser } from "../../services/anonymousUser";
 import PostForm from "../../components/PostForm/PostForm";
-import { useNavigate } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import RepostedPost from "../../components/RepostedPost/RepostedPost";
 import styles from "./CreatePost.module.css";
 
 const CreatePost = () => {
