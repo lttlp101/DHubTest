@@ -18,7 +18,6 @@ import CommentSection from "../../components/CommentSection/CommentSection";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
 import Button from "../../components/Button/Button";
-import { useParams, useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import RepostedPost from "../../components/RepostedPost/RepostedPost";
 import styles from "./Post.module.css";
