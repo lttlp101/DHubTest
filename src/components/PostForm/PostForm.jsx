@@ -24,7 +24,8 @@ const PostForm = ({
 	const [video_url, setVideoUrl] = useState(initialValues.video_url || "");
 	const [flags, setFlags] = useState(initialValues.flags || []);
 	const [secret_key, setSecretKey] = useState(initialValues.secret_key || "");
-	const [repost_id, setRepostId] = useState(initialValues.repost_id || "");
+	// Using array destructuring to only get the state value since we don't need to update it
+	const [repost_id] = useState(initialValues.repost_id || "");
 	const [error, setError] = useState("");
 
 	const handleFlagChange = (flag) => {
@@ -105,6 +106,7 @@ const PostForm = ({
 				/>
 			</div>
 
+			{/* Rest of the form fields remain unchanged */}
 			<div className={styles.formGroup}>
 				<label htmlFor="image_url">Image URL (Optional)</label>
 				<input
