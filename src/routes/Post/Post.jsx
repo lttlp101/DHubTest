@@ -18,6 +18,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
 import Button from "../../components/Button/Button";
 import { useParams, useNavigate } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 import styles from "./Post.module.css";
 
 const Post = () => {
@@ -120,40 +121,48 @@ const Post = () => {
 	};
 
 	if (loading) return <LoadingSpinner />;
-	if (!post) return <div>Post not found.</div>;
+	if (!post)
+		return <div className={styles.postContainer}>Post not found.</div>;
 
 	const isAuthor = isContentOwner(post.author_id);
 
 	return (
-		<div>
-			<h2>{post.title}</h2>
-			<div>
-				<small>Posted by: {post.author_name || "Anonymous"}</small>
+		<div className={styles.postContainer}>
+			<div className={styles.postHeader}>
+				<h2 className={styles.postTitle}>{post.title}</h2>
+				<div className={styles.postMeta}>
+					<span className={styles.authorInfo}>
+						Posted by: {post.author_name || "Anonymous"}
+					</span>
+					{post.created_at && (
+						<span className={styles.postTime}>
+							{formatDate(post.created_at)}
+						</span>
+					)}
+				</div>
 			</div>
 
 			{post.image_url && (
 				<img
 					src={post.image_url}
 					alt="Post"
-					style={{ maxWidth: "400px" }}
+					className={styles.postImage}
 				/>
 			)}
-			<p>{post.content}</p>
+
+			<div className={styles.postContent}>{post.content}</div>
+
 			{post.video_url && (
-				<video
-					src={post.video_url}
-					controls
-					style={{ maxWidth: "400px" }}
-				/>
+				<div className={styles.videoContainer}>
+					<video
+						src={post.video_url}
+						controls
+						className={styles.postVideo}
+					/>
+				</div>
 			)}
-			<div
-				style={{
-					display: "flex",
-					alignItems: "center",
-					gap: "10px",
-					marginTop: "20px",
-				}}
-			>
+
+			<div className={styles.actionButtons}>
 				<UpvoteButton
 					count={post.upvotes}
 					onUpvote={handleUpvote}
@@ -177,12 +186,13 @@ const Post = () => {
 			</div>
 
 			{showSecretKeyInput && (
-				<div style={{ marginTop: "15px" }}>
+				<div className={styles.secretKeyContainer}>
 					<input
 						type="password"
 						placeholder="Enter secret key to delete"
 						value={secretKey}
 						onChange={(e) => setSecretKey(e.target.value)}
+						className={styles.secretKeyInput}
 					/>
 					<Button
 						onClick={handleDeletePost}
@@ -194,18 +204,18 @@ const Post = () => {
 				</div>
 			)}
 
-			{error && (
-				<div style={{ color: "red", marginTop: "10px" }}>{error}</div>
-			)}
+			{error && <div className={styles.errorMessage}>{error}</div>}
 
-			<CommentSection
-				comments={comments}
-				onAdd={handleAddComment}
-				onDelete={handleDeleteComment}
-				commentText={commentText}
-				setCommentText={setCommentText}
-				currentUserId={currentUser?.id}
-			/>
+			<div className={styles.commentsSection}>
+				<CommentSection
+					comments={comments}
+					onAdd={handleAddComment}
+					onDelete={handleDeleteComment}
+					commentText={commentText}
+					setCommentText={setCommentText}
+					currentUserId={currentUser?.id}
+				/>
+			</div>
 		</div>
 	);
 };

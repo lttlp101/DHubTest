@@ -1,4 +1,4 @@
-// src/routes/EditPost.jsx
+// src/routes/EditPost/EditPost.jsx
 // Route for editing an existing post.
 
 import React, { useEffect, useState } from "react";
@@ -68,29 +68,40 @@ const EditPost = () => {
 	};
 
 	if (loading) return <LoadingSpinner />;
+
 	if (unauthorized) {
 		return (
-			<div>
-				<h2>Unauthorized</h2>
-				<p>
-					You are not authorized to edit this post as you are not the
-					author.
-				</p>
-				<Button
-					onClick={() => navigate(`/post/${id}`)}
-					variant="primary"
-				>
-					Back to Post
-				</Button>
+			<div className={styles.editPostContainer}>
+				<h2 className={styles.editPostTitle}>Unauthorized</h2>
+				<div className={styles.unauthorizedMessage}>
+					<p>
+						You are not authorized to edit this post as you are not
+						the author.
+					</p>
+				</div>
+				<div className={styles.actionButtons}>
+					<Button
+						onClick={() => navigate(`/post/${id}`)}
+						variant="primary"
+					>
+						Back to Post
+					</Button>
+				</div>
 			</div>
 		);
 	}
-	if (!initialValues) return <div>Post not found.</div>;
+
+	if (!initialValues)
+		return (
+			<div className={styles.editPostContainer}>
+				<div className={styles.errorMessage}>Post not found.</div>
+			</div>
+		);
 
 	return (
-		<div>
-			<h2>Edit Post</h2>
-			{error && <div style={{ color: "red" }}>{error}</div>}
+		<div className={styles.editPostContainer}>
+			<h2 className={styles.editPostTitle}>Edit Post</h2>
+			{error && <div className={styles.errorMessage}>{error}</div>}
 			<PostForm
 				onSubmit={handleSubmit}
 				initialValues={initialValues}
