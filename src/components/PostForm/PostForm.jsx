@@ -95,7 +95,7 @@ const PostForm = ({
 			</div>
 
 			<div className={styles.formGroup}>
-				<label htmlFor="content">Content (Optional)</label>
+				<label htmlFor="content">Content</label>
 				<textarea
 					id="content"
 					placeholder={
