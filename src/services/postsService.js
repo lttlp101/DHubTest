@@ -37,21 +37,31 @@ export async function fetchPostById(id) {
 
 // Create a new post
 export async function createPost(post) {
-	// Handle the case when this is a repost
+	// Create a copy of the post object to avoid modifying the original
 	const postData = { ...post };
 
-	// If repost_id is empty string or null, remove it before sending to API
-	if (!postData.repost_id) {
+	// Ensure repost_id is properly handled
+	// Only include repost_id if it's not empty/null/undefined
+	if (
+		postData.repost_id === null ||
+		postData.repost_id === undefined ||
+		postData.repost_id === ""
+	) {
 		delete postData.repost_id;
+	} else {
+		// Log for debugging
+		console.log("Creating repost with repost_id:", postData.repost_id);
 	}
 
-	const { data, error } = await supabase
-		.from("posts")
-		.insert([postData])
-		.single();
+	// Insert post into Supabase
+	const { data, error } = await supabase.from("posts").insert([postData]);
 
-	if (error) throw error;
-	return data;
+	if (error) {
+		console.error("Error creating post:", error);
+		throw error;
+	}
+
+	return data ? data[0] : null;
 }
 
 // Update a post by ID with secret key
