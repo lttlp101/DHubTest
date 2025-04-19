@@ -1,0 +1,87 @@
+/* src/routes/Register/Register.module.css */
+.registerContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.registerCard {
+	background-color: var(--color-card-bg);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+	padding: var(--spacing-xl);
+	width: 100%;
+	max-width: 400px;
+}
+
+.registerTitle {
+	text-align: center;
+	margin-bottom: var(--spacing-lg);
+	color: var(--color-text);
+}
+
+.registerForm {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
+.formLabel {
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.formInput {
+	padding: var(--spacing-md);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-card-bg);
+	color: var(--color-text);
+	transition: border-color var(--transition-fast);
+}
+
+.formInput:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
+}
+
+.passwordRequirements {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-light);
+	margin-top: var(--spacing-xs);
+}
+
+.errorMessage {
+	color: var(--color-error);
+	background-color: rgba(220, 53, 69, 0.1);
+	padding: var(--spacing-sm);
+	border-radius: var(--radius-sm);
+	margin-bottom: var(--spacing-sm);
+}
+
+.loginOption {
+	margin-top: var(--spacing-lg);
+	text-align: center;
+	padding-top: var(--spacing-md);
+	border-top: 1px solid var(--color-border);
+}
+
+.loginLink {
+	color: var(--color-primary);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color var(--transition-fast);
+}
+
+.loginLink:hover {
+	color: var(--color-primary-dark);
+	text-decoration: underline;
+}

@@ -19,6 +19,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import UpvoteButton from "../../components/UpvoteButton/UpvoteButton";
 import Button from "../../components/Button/Button";
 import { useParams, useNavigate } from "react-router-dom";
+import styles from "./Post.module.css";
 
 const Post = () => {
 	const { id } = useParams();

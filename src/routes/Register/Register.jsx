@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import styles from "./Register.module.css";
 
 const Register = () => {
 	const [username, setUsername] = useState("");

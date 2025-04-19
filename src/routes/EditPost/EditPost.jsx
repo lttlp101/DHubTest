@@ -9,6 +9,7 @@ import PostForm from "../../components/PostForm/PostForm";
 import { useParams, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Button from "../../components/Button/Button";
+import styles from "./EditPost.module.css";
 
 const EditPost = () => {
 	const { id } = useParams();

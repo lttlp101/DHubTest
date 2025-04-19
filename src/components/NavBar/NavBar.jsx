@@ -2,13 +2,13 @@
 // Diablo Hub navigation bar with logo, search, navigation links, and theme switcher.
 // src/components/NavBar/NavBar.jsx
 
-// NavBar.jsx - Updated with Logout Feature
+// src/components/NavBar/NavBar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
-import Button from "../Button/Button";
 import { logoutUser } from "../../services/authService";
+import { getCurrentUser } from "../../services/anonymousUser";
 import { applyTheme } from "../../utils/themeUtils";
 
 const NavBar = () => {
@@ -17,7 +17,16 @@ const NavBar = () => {
 	);
 	const [search, setSearch] = useState("");
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isAnonymousUser, setIsAnonymousUser] = useState(false);
 	const navigate = useNavigate();
+
+	const checkLoginStatus = () => {
+		const user = getCurrentUser();
+		setIsLoggedIn(!!user);
+		if (user && user.username) {
+			setIsAnonymousUser(user.username.startsWith("Anonymous-"));
+		}
+	};
 
 	// Effect to check login status and synchronize theme
 	useEffect(() => {
@@ -26,10 +35,18 @@ const NavBar = () => {
 			setTheme(savedTheme);
 		}
 
-		// Check if user is logged in
-		const userId = localStorage.getItem("diablohub_user_id");
-		setIsLoggedIn(!!userId);
-	}, []);
+		// Initial check
+		checkLoginStatus();
+
+		// Add listener for auth changes
+		const handleAuthChange = () => checkLoginStatus();
+		window.addEventListener("auth_state_changed", handleAuthChange);
+
+		// Cleanup
+		return () => {
+			window.removeEventListener("auth_state_changed", handleAuthChange);
+		};
+	}, [theme]);
 
 	const handleThemeChange = (themeName) => {
 		setTheme(themeName);
@@ -62,7 +79,7 @@ const NavBar = () => {
 			<form className={styles.searchForm} onSubmit={handleSearch}>
 				<input
 					type="text"
-					placeholder="Search"
+					placeholder="Search... type and hit enter"
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 					className={styles.searchInput}
@@ -75,9 +92,22 @@ const NavBar = () => {
 				<Link to="/create" className={styles.link}>
 					Create New Post
 				</Link>
-				<Link to="/" className={styles.link} onClick={handleLogout}>
-					Logout
-				</Link>
+
+				{isLoggedIn ? (
+					<Link to="/" className={styles.link} onClick={handleLogout}>
+						Logout
+					</Link>
+				) : (
+					<Link to="/login" className={styles.link}>
+						Login
+						{isAnonymousUser && (
+							<span className={styles.registerBadge}>
+								/ Register
+							</span>
+						)}
+					</Link>
+				)}
+
 				<ThemeSwitcher
 					currentTheme={theme}
 					onChange={handleThemeChange}

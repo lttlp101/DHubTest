@@ -53,6 +53,12 @@
 	color: var(--color-text-light);
 }
 
+.searchResultsHeading {
+	margin-bottom: var(--spacing-lg);
+	color: var(--color-text);
+	font-size: var(--font-size-lg);
+}
+
 @media (max-width: 600px) {
 	.controlsContainer {
 		flex-direction: column;

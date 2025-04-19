@@ -1,13 +1,13 @@
 // Home.jsx
 // Displays the main feed of posts, with sorting, searching, and filtering.
-// Home.jsx - Updated version
+// src/routes/Home/Home.jsx
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
 import { fetchPosts } from "../../services/postsService";
 import PostCard from "../../components/PostCard/PostCard";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import Button from "../../components/Button/Button";
-import styles from "./Home.module.css"; // Create this file if it doesn't exist
+import styles from "./Home.module.css";
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);
@@ -17,12 +17,25 @@ const Home = () => {
 	const [flag, setFlag] = useState("");
 
 	const navigate = useNavigate();
+	const location = useLocation(); // Get access to the URL location
+
+	// Parse search parameter from URL
+	const getSearchParam = () => {
+		const searchParams = new URLSearchParams(location.search);
+		return searchParams.get("search") || "";
+	};
 
 	useEffect(() => {
 		const loadPosts = async () => {
 			setLoading(true);
 			try {
-				const data = await fetchPosts({ sortBy, order, flag });
+				const searchTerm = getSearchParam();
+				const data = await fetchPosts({
+					sortBy,
+					order,
+					flag,
+					search: searchTerm, // Pass the search parameter
+				});
 				setPosts(data);
 			} catch (err) {
 				console.error("Failed to fetch posts:", err);
@@ -30,14 +43,24 @@ const Home = () => {
 			setLoading(false);
 		};
 		loadPosts();
-	}, [sortBy, order, flag]);
+	}, [sortBy, order, flag, location.search]); // Add location.search as dependency
 
 	const handleSortChange = (newSortBy) => {
 		setSortBy(newSortBy);
 	};
 
+	// Add this to show the current search term if present
+	const searchTerm = getSearchParam();
+
 	return (
 		<div className={styles.homeContainer}>
+			{/* Show search results heading if search is active */}
+			{searchTerm && (
+				<h2 className={styles.searchResultsHeading}>
+					Search results for: "{searchTerm}"
+				</h2>
+			)}
+
 			{/* Controls for sort and filter */}
 			<div className={styles.controlsContainer}>
 				<div className={styles.sortControls}>
@@ -92,7 +115,9 @@ const Home = () => {
 					) : (
 						<div className={styles.noPosts}>
 							<p>
-								No posts found. Be the first to create a post!
+								{searchTerm
+									? `No posts found matching "${searchTerm}"`
+									: "No posts found. Be the first to create a post!"}
 							</p>
 						</div>
 					)}

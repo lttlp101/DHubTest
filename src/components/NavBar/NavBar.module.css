@@ -30,6 +30,7 @@
 }
 
 .title {
+	margin-left: var(--spacing-xxxl);
 	text-decoration: none !important;
 	color: var(--color-text-inverse) !important;
 }
@@ -90,6 +91,14 @@
 
 .link:hover::after {
 	width: 100%;
+}
+
+/* Add to NavBar.module.css */
+.registerBadge {
+	font-size: var(--font-size-xs);
+	color: var(--color-accent);
+	margin-left: 4px;
+	font-weight: normal;
 }
 
 @media (max-width: 768px) {
