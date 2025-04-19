@@ -1,0 +1,61 @@
+/* src/routes/Home.module.css */
+.homeContainer {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: var(--spacing-md);
+}
+
+.controlsContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: var(--spacing-lg);
+	flex-wrap: wrap;
+	gap: var(--spacing-md);
+}
+
+.sortControls {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-md);
+}
+
+.orderByLabel {
+	font-weight: 500;
+	color: var(--color-text);
+}
+
+.sortButtons {
+	display: flex;
+	gap: var(--spacing-xs);
+}
+
+.flagFilter {
+	padding: var(--spacing-xs) var(--spacing-sm);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-sm);
+	background-color: var(--color-card-bg);
+	color: var(--color-text);
+}
+
+.postsContainer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+}
+
+.noPosts {
+	text-align: center;
+	padding: var(--spacing-xl);
+	background-color: var(--color-card-bg);
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-sm);
+	color: var(--color-text-light);
+}
+
+@media (max-width: 600px) {
+	.controlsContainer {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}

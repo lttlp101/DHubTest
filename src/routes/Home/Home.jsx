@@ -1,17 +1,19 @@
 // Home.jsx
 // Displays the main feed of posts, with sorting, searching, and filtering.
+// Home.jsx - Updated version
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchPosts } from "../../services/postsService";
 import PostCard from "../../components/PostCard/PostCard";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import Button from "../../components/Button/Button";
+import styles from "./Home.module.css"; // Create this file if it doesn't exist
 
 const Home = () => {
 	const [posts, setPosts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [sortBy, setSortBy] = useState("created_at");
 	const [order, setOrder] = useState("desc");
-	const [search, setSearch] = useState("");
 	const [flag, setFlag] = useState("");
 
 	const navigate = useNavigate();
@@ -20,7 +22,7 @@ const Home = () => {
 		const loadPosts = async () => {
 			setLoading(true);
 			try {
-				const data = await fetchPosts({ sortBy, order, search, flag });
+				const data = await fetchPosts({ sortBy, order, flag });
 				setPosts(data);
 			} catch (err) {
 				console.error("Failed to fetch posts:", err);
@@ -28,43 +30,73 @@ const Home = () => {
 			setLoading(false);
 		};
 		loadPosts();
-	}, [sortBy, order, search, flag]);
+	}, [sortBy, order, flag]);
+
+	const handleSortChange = (newSortBy) => {
+		setSortBy(newSortBy);
+	};
 
 	return (
-		<div>
-			{/* Controls for sort, search, filter */}
-			<div
-				style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}
-			>
-				<input
-					type="text"
-					placeholder="Search by title"
-					value={search}
-					onChange={(e) => setSearch(e.target.value)}
-				/>
+		<div className={styles.homeContainer}>
+			{/* Controls for sort and filter */}
+			<div className={styles.controlsContainer}>
+				<div className={styles.sortControls}>
+					<span className={styles.orderByLabel}>Order by: </span>
+					<div className={styles.sortButtons}>
+						<Button
+							onClick={() => handleSortChange("created_at")}
+							variant={
+								sortBy === "created_at"
+									? "primary"
+									: "secondary"
+							}
+							size="small"
+						>
+							Newest
+						</Button>
+						<Button
+							onClick={() => handleSortChange("upvotes")}
+							variant={
+								sortBy === "upvotes" ? "primary" : "secondary"
+							}
+							size="small"
+						>
+							Most Popular
+						</Button>
+					</div>
+				</div>
+
 				<select
-					value={sortBy}
-					onChange={(e) => setSortBy(e.target.value)}
+					value={flag}
+					onChange={(e) => setFlag(e.target.value)}
+					className={styles.flagFilter}
 				>
-					<option value="created_at">Newest</option>
-					<option value="upvotes">Most Popular</option>
-				</select>
-				<select value={flag} onChange={(e) => setFlag(e.target.value)}>
-					<option value="">All Flags</option>
+					<option value="">All Categories</option>
 					<option value="Question">Question</option>
 					<option value="Opinion">Opinion</option>
 				</select>
 			</div>
+
 			{loading ? (
 				<LoadingSpinner />
 			) : (
-				posts.map((post) => (
-					<PostCard
-						key={post.id}
-						post={post}
-						onClick={() => navigate(`/post/${post.id}`)}
-					/>
-				))
+				<div className={styles.postsContainer}>
+					{posts.length > 0 ? (
+						posts.map((post) => (
+							<PostCard
+								key={post.id}
+								post={post}
+								onClick={() => navigate(`/post/${post.id}`)}
+							/>
+						))
+					) : (
+						<div className={styles.noPosts}>
+							<p>
+								No posts found. Be the first to create a post!
+							</p>
+						</div>
+					)}
+				</div>
 			)}
 		</div>
 	);
