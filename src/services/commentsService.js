@@ -55,6 +55,6 @@ export async function deleteComment(id) {
 		throw new Error("Unauthorized: You are not the author of this comment");
 	}
 
-	const { error } = await supabase.from("Comments").delete().eq("id", id);
+	const { error } = await supabase.from("comments").delete().eq("id", id);
 	if (error) throw error;
 }
